@@ -276,12 +276,74 @@ const LandingPage = () => {
     </div>
   </div>
 </section>
-       <section className="h-screen bg-gray-700 flex items-center justify-center p-4">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">Section 7</h1>
-            <p className="mt-4 text-lg md:text-xl lg:text-2xl">This is a description for Section 7.</p>
-          </div>
-        </section>
+
+
+
+<section
+  className="relative bg-black bg-cover bg-center h-screen text-white py-16"
+  style={{ backgroundImage: `url('https://i.imgur.com/SYYoLCY.png')`, backgroundColor: 'rgba(0, 0, 0, 0.5)' }} // Lowered opacity for background
+>
+  {/* Left Side - Logo */}
+  <div className="absolute top-4 left-4">
+    <img src="https://i.imgur.com/uhFDaHz.png" alt="Logo" className="w-32 lg:w-48" /> {/* Replace with your logo URL */}
+  </div>
+
+  <div className="flex flex-col lg:flex-row items-center justify-between max-w-screen-lg mx-auto px-4">
+    {/* Left Side - Empty */}
+    <div className="w-full lg:w-1/2"></div>
+
+    {/* Right Side - Contact Form */}
+    <div className="w-full lg:w-1/2 bg-gray-900 p-8 rounded-lg border-4 border-white border-opacity-50 glow">
+      <h2 className="text-2xl font-bold mb-6 text-center">Contact Us</h2>
+      <form className="space-y-4">
+        <div>
+          <label htmlFor="name" className="block text-sm font-semibold mb-1">Name</label>
+          <input
+            type="text"
+            id="name"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-my-green"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="email" className="block text-sm font-semibold mb-1">Email</label>
+          <input
+            type="email"
+            id="email"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-my-green"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="phone" className="block text-sm font-semibold mb-1">Phone</label>
+          <input
+            type="tel"
+            id="phone"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-my-green"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="message" className="block text-sm font-semibold mb-1">Message</label>
+          <textarea
+            id="message"
+            rows="4"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-my-green"
+            required
+          ></textarea>
+        </div>
+        <div>
+          <button
+            type="submit"
+            className="w-full bg-my-green text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
       </div>
 
       {/* Footer */}
