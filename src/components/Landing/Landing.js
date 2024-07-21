@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from '../Navbar/Navbar'; // Import Navbar
 import Footer from '../Footer/Footer'; // Import Footer
 import { useState } from 'react';
-
+import "./Landing.css"
 const LandingPage = () => {
   const [focusedCard, setFocusedCard] = useState(1);
 
@@ -225,7 +225,7 @@ const LandingPage = () => {
           <li>Feature 2</li>
           <li>Feature 3</li>
         </ul>
-        <div className="w-full border-t-2 border-my-green mb-4"></div>
+        <div className="w-full border-t-2 border-white mb-4"></div>
         <button className="bg-black text-white px-6 py-2 rounded-3xl text-sm font-semibold hover:bg-green-600 transition">Buy Now</button>
       </div>
     </div>
@@ -270,7 +270,7 @@ const LandingPage = () => {
           <li>Feature 4</li>
           <li>Feature 5</li>
         </ul>
-        <div className="w-full border-t-2 border-my-green mb-4"></div>
+        <div className="w-full border-t-2 border-white mb-4"></div>
         <button className="bg-black text-white px-6 py-2 rounded-3xl text-sm font-semibold hover:bg-green-600 transition">Buy Now</button>
       </div>
     </div>
