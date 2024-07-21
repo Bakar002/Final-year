@@ -17,7 +17,7 @@ const Navbar = () => {
                 <a href="#dashboard" className="hover:text-gray-300">Dashboard</a>
             </div>
             <div className="flex items-center space-x-4">
-                <button className=" px-3 py-2 ">Sign In</button>
+                <button  className=" px-3 py-2 ">Sign In</button>
                 <button className="bg-my-green px-5 py-2 text-white rounded">Register</button>
             </div>
            

@@ -53,7 +53,7 @@ const LandingPage = () => {
 
       <section
           className='relative bg-black bg-cover bg-center h-screen text-white py-16'
-          style={{ backgroundImage: `url('https://i.imgur.com/mrNyfty.png')` }}
+          style={{ backgroundImage: `url('https://i.imgur.com/mrNyfty.png')` }} id='features'
         >
           <div className="flex flex-col items-center justify-center h-full p-10">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-10">Key Features</h1>
@@ -189,7 +189,7 @@ const LandingPage = () => {
 </section>
 
 
-<section className="relative h-screen bg-gray-600 flex flex-col items-center justify-center text-white p-4">
+<section className="relative h-screen bg-gray-600 flex flex-col items-center justify-center text-white p-4" id='pricing'>
   {/* Background Image Left */}
   <div className="absolute top-0 left-0 h-full w-1/6 bg-contain bg-center" style={{ backgroundImage: `url('https://i.imgur.com/ef0GfOK.png')` }}></div>
   
@@ -282,6 +282,7 @@ const LandingPage = () => {
 <section
   className="relative bg-black bg-cover bg-center h-screen text-white py-16"
   style={{ backgroundImage: `url('https://i.imgur.com/SYYoLCY.png')`, backgroundColor: 'rgba(0, 0, 0, 0.5)' }} // Lowered opacity for background
+id='contact'
 >
   {/* Left Side - Logo */}
   <div className="absolute top-4 left-4">
