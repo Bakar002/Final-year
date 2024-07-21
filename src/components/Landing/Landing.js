@@ -1,8 +1,11 @@
 import React from 'react';
 import Navbar from '../Navbar/Navbar'; // Import Navbar
 import Footer from '../Footer/Footer'; // Import Footer
+import { useState } from 'react';
 
 const LandingPage = () => {
+  const [focusedCard, setFocusedCard] = useState(1);
+
   return (
     <div className="flex flex-col min-h-screen">
 
@@ -147,16 +150,16 @@ const LandingPage = () => {
   </div>
 </section>
 
-<section className="h-screen flex items-center justify-center p-4">
+<section className="h-screen bg-black flex items-center justify-center p-4 relative">
   <div className="flex w-full max-w-screen-lg mx-auto">
     {/* Left Side */}
     <div className="w-1/2 pr-8">
       <div className="text-left mb-10">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold p-3">Vehicle</h1>
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold p-3 text-white">Vehicle</h1>
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-my-green p-3">Maintenance</h2>
-        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold p-3">Made Easy</h3>
+        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold p-3 text-white">Made Easy</h3>
       </div>
-
+      
       {/* Boxes with Icons and Text */}
       <div className="space-y-4">
         <div className="flex items-center bg-my-green p-4 rounded-lg shadow-lg">
@@ -177,22 +180,103 @@ const LandingPage = () => {
         </div>
       </div>
     </div>
+  </div>
 
-    {/* Right Side */}
-    <div className="w-1/2 h-full flex items-center justify-end relative">
-      <img src="https://i.imgur.com/7OSR4Lf.png" alt="Maintenance Image" className="h-full w-auto absolute right-0" />
-    </div>
+  {/* Right Side Image */}
+  <div className="absolute right-0 top-0 h-full flex items-center">
+    <img src="https://i.imgur.com/7OSR4Lf.png" alt="Maintenance Image" className="h-full w-auto" />
   </div>
 </section>
 
 
-        <section className="h-screen bg-gray-600 flex items-center justify-center p-4">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">Section 6</h1>
-            <p className="mt-4 text-lg md:text-xl lg:text-2xl">This is a description for Section 6.</p>
-          </div>
-        </section>
-        <section className="h-screen bg-gray-700 flex items-center justify-center p-4">
+<section className="relative h-screen bg-gray-600 flex flex-col items-center justify-center text-white p-4">
+  {/* Background Image Left */}
+  <div className="absolute top-0 left-0 h-full w-1/6 bg-contain bg-center" style={{ backgroundImage: `url('https://i.imgur.com/ef0GfOK.png')` }}></div>
+  
+  {/* Background Image Right */}
+  <div className="absolute top-0 right-0 h-full w-1/6 bg-contain bg-center" style={{ backgroundImage: `url('https://i.imgur.com/NtoW9SY.png')` }}></div>
+  
+  <div className="relative z-10 text-center mb-8">
+    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Pricing and Plan</h1>
+    <p className="text-lg md:text-xl lg:text-2xl">Choose the perfect plan for you, with options to fit every need.</p>
+  </div>
+  
+  <div className="relative z-10 mb-8">
+    <button className="text-white bg-transparent border-2 border-my-green px-10 py-3 rounded-lg text-lg font-semibold hover:bg-my-green hover:text-white transition">
+      25% Discount
+    </button>
+  </div>
+
+  <div className="relative z-10 flex flex-col lg:flex-row gap-0 max-w-screen-lg mx-auto">
+    {/* Pricing Card 1 */}
+    <div className="bg-my-green text-white rounded-lg shadow-lg p-6 flex flex-col items-center relative transform transition-transform hover:scale-105 focus-within:scale-105 z-10">
+      <div className="w-full bg-my-green p-4 rounded-lg text-center">
+        <div className="w-full p-2 bg-white rounded-lg text-center text-black">
+          <h2 className="text-xl font-bold">Basic Plan</h2>
+        </div>
+        <p className="text-lg font-bold mt-2 relative">
+          <span className="text-2xl font-extrabold">USD 19.99</span>
+          <span className="absolute top-0 -right-10 text-sm line-through text-black"> 29.99</span>
+        </p>
+      </div>
+      <div className="flex flex-col items-center p-6">
+        <ul className="list-disc list-inside mb-4">
+          <li>Feature 1</li>
+          <li>Feature 2</li>
+          <li>Feature 3</li>
+        </ul>
+        <div className="w-full border-t-2 border-my-green mb-4"></div>
+        <button className="bg-black text-white px-6 py-2 rounded-3xl text-sm font-semibold hover:bg-green-600 transition">Buy Now</button>
+      </div>
+    </div>
+
+    {/* Pricing Card 2 (Focused) */}
+    <div className="bg-white text-gray-800 rounded-lg shadow-lg p-6 flex flex-col items-center relative transform scale-105 z-20">
+      <div className="w-full bg-my-green px-10 p-3 rounded-lg text-center ">
+        <h2 className="text-xl font-bold text-white">Standard Plan</h2>
+        <p className="text-lg font-bold mt-2 relative text-white">
+          <span className="text-2xl font-extrabold">USD 39.99</span>
+          <span className="absolute top-0 -right-10 text-sm line-through text-black">49.99</span>
+        </p>
+      </div>
+      <div className="flex flex-col items-center p-6">
+        <ul className="list-disc list-inside mb-4">
+          <li>Feature 1</li>
+          <li>Feature 2</li>
+          <li>Feature 3</li>
+          <li>Feature 4</li>
+        </ul>
+        <div className="w-full border-t-2 border-my-green mb-4"></div>
+        <button className="bg-my-green text-white px-6 py-2 rounded-3xl text-sm font-semibold hover:bg-green-600 transition">Buy Now</button>
+      </div>
+    </div>
+
+    {/* Pricing Card 3 */}
+    <div className="bg-my-green text-white rounded-lg shadow-lg p-6 flex flex-col items-center relative transform transition-transform hover:scale-105 focus-within:scale-105 z-10">
+      <div className="w-full bg-my-green p-4 rounded-lg text-center">
+        <div className="w-full p-2 bg-white rounded-lg text-center text-black">
+          <h2 className="text-xl font-bold">Premium Plan</h2>
+        </div>
+        <p className="text-lg font-bold mt-2 relative">
+          <span className="text-2xl font-extrabold">USD 59.99</span>
+          <span className="absolute top-0 -right-8 text-sm line-through text-black">69.99</span>
+        </p>
+      </div>
+      <div className="flex flex-col items-center p-6">
+        <ul className="list-disc list-inside mb-4">
+          <li>Feature 1</li>
+          <li>Feature 2</li>
+          <li>Feature 3</li>
+          <li>Feature 4</li>
+          <li>Feature 5</li>
+        </ul>
+        <div className="w-full border-t-2 border-my-green mb-4"></div>
+        <button className="bg-black text-white px-6 py-2 rounded-3xl text-sm font-semibold hover:bg-green-600 transition">Buy Now</button>
+      </div>
+    </div>
+  </div>
+</section>
+       <section className="h-screen bg-gray-700 flex items-center justify-center p-4">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">Section 7</h1>
             <p className="mt-4 text-lg md:text-xl lg:text-2xl">This is a description for Section 7.</p>
