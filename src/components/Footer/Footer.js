@@ -17,27 +17,27 @@ const Footer = () => {
           <div className="flex flex-col space-y-4">
             <h4 className="text-lg font-bold mb-2">About Us</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-my-green transition">Company</a></li>
-              <li><a href="#" className="hover:text-my-green transition">Team</a></li>
-              <li><a href="#" className="hover:text-my-green transition">Careers</a></li>
+              <li><a href="#" className="hover:text-light-green transition">Company</a></li>
+              <li><a href="#" className="hover:text-light-green transition">Team</a></li>
+              <li><a href="#" className="hover:text-light-green transition">Careers</a></li>
             </ul>
           </div>
 
           <div className="flex flex-col space-y-4">
             <h4 className="text-lg font-bold mb-2">Services</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-my-green transition">Consulting</a></li>
-              <li><a href="#" className="hover:text-my-green transition">Development</a></li>
-              <li><a href="#" className="hover:text-my-green transition">Design</a></li>
+              <li><a href="#" className="hover:text-light-green transition">Consulting</a></li>
+              <li><a href="#" className="hover:text-light-green transition">Development</a></li>
+              <li><a href="#" className="hover:text-light-green transition">Design</a></li>
             </ul>
           </div>
 
           <div className="flex flex-col space-y-4">
             <h4 className="text-lg font-bold mb-2">Contact</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-my-green transition">Support</a></li>
-              <li><a href="#" className="hover:text-my-green transition">Sales</a></li>
-              <li><a href="#" className="hover:text-my-green transition">Feedback</a></li>
+              <li><a href="#" className="hover:text-light-green transition">Support</a></li>
+              <li><a href="#" className="hover:text-light-green transition">Sales</a></li>
+              <li><a href="#" className="hover:text-light-green transition">Feedback</a></li>
             </ul>
           </div>
         </div>
@@ -49,9 +49,9 @@ const Footer = () => {
             <input
               type="email"
               placeholder="Your email address"
-              className="px-4 py-2 rounded-l-lg bg-white text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-my-green"
+              className="px-4 py-2 rounded-l-lg bg-white text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-light-green"
             />
-            <button className="px-6 py-2 bg-my-green text-white rounded-r-lg font-semibold hover:bg-green-600 transition">Subscribe</button>
+            <button className="px-6 py-2 bg-light-green text-white rounded-r-lg font-semibold hover:bg-green-600 transition">Subscribe</button>
           </div>
         </div>
       </div>

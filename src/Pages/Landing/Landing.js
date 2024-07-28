@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from '../Navbar/Navbar'; // Import Navbar
-import Footer from '../Footer/Footer'; // Import Footer
+import Navbar from '../../components/Navbar/Navbar'; // Import Navbar
+import Footer from '../../components/Footer/Footer'; // Import Footer
 import { useState } from 'react';
 import "./Landing.css"
 const LandingPage = () => {
@@ -41,7 +41,7 @@ const LandingPage = () => {
             <p className="mt-4 text-lg md:text-xl lg:text-2xl">
               A short paragraph explaining the purpose of the project and how it helps in modeling driver behavior and predictive maintenance.
             </p>
-            <button className="bg-my-green px-5 py-2 text-white rounded mt-4">
+            <button className="bg-light-green px-5 py-2 text-white rounded mt-4">
               Get Started
             </button>
           </div>
@@ -92,10 +92,9 @@ const LandingPage = () => {
         </section>
 
         <section
-          className='relative bg-black bg-cover bg-center h-screen text-white py-16'
+          className='relative bg-black bg-coontain bg-center h-screen text-white py-16'
           style={{ backgroundImage: `url('https://i.imgur.com/UbIC1va.png')` }}
         >
-
         </section>
         <section
   className="relative bg-black bg-cover bg-center h-screen text-white py-16"
@@ -108,7 +107,7 @@ const LandingPage = () => {
     <div className="w-1/2"></div>
     <div className="w-1/2 flex flex-col space-y-16">
       <div className="flex items-center relative">
-        <div className="bg-my-green text-black w-16 h-16 rounded-full flex items-center justify-center font-bold relative z-10 flex-shrink-0">1</div>
+        <div className="bg-light-green text-black w-16 h-16 rounded-full flex items-center justify-center font-bold relative z-10 flex-shrink-0">1</div>
         <div className="ml-4 flex-grow">
           <h2 className="text-2xl font-bold">Install OBD-II Device</h2>
           <p className="text-lg">
@@ -118,7 +117,7 @@ const LandingPage = () => {
         <div className="absolute left-8 top-16 w-px h-32 border-l-2 border-dotted border-white"></div>
       </div>
       <div className="flex items-center relative">
-        <div className="bg-my-green text-black w-16 h-16 rounded-full flex items-center justify-center font-bold relative z-10 flex-shrink-0">2</div>
+        <div className="bg-light-green text-black w-16 h-16 rounded-full flex items-center justify-center font-bold relative z-10 flex-shrink-0">2</div>
         <div className="ml-4 flex-grow">
           <h2 className="text-2xl font-bold">Sync with App</h2>
           <p className="text-lg">
@@ -128,7 +127,7 @@ const LandingPage = () => {
         <div className="absolute left-8 top-16 w-px h-32 border-l-2 border-dotted border-white"></div>
       </div>
       <div className="flex items-center relative">
-        <div className="bg-my-green text-black w-16 h-16 rounded-full flex items-center justify-center font-bold relative z-10 flex-shrink-0">3</div>
+        <div className="bg-light-green text-black w-16 h-16 rounded-full flex items-center justify-center font-bold relative z-10 flex-shrink-0">3</div>
         <div className="ml-4 flex-grow">
           <h2 className="text-2xl font-bold">Monitor & Analyze</h2>
           <p className="text-lg">
@@ -138,7 +137,7 @@ const LandingPage = () => {
         <div className="absolute left-8 top-16 w-px h-32 border-l-2 border-dotted border-white"></div>
       </div>
       <div className="flex items-center relative">
-        <div className="bg-my-green text-black w-16 h-16 rounded-full flex items-center justify-center font-bold relative z-10 flex-shrink-0">4</div>
+        <div className="bg-light-green text-black w-16 h-16 rounded-full flex items-center justify-center font-bold relative z-10 flex-shrink-0">4</div>
         <div className="ml-4 flex-grow">
           <h2 className="text-2xl font-bold">Receive Alerts and Reports</h2>
           <p className="text-lg">
@@ -156,13 +155,13 @@ const LandingPage = () => {
     <div className="w-1/2 pr-8">
       <div className="text-left mb-10">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold p-3 text-white">Vehicle</h1>
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-my-green p-3">Maintenance</h2>
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-light-green p-3">Maintenance</h2>
         <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold p-3 text-white">Made Easy</h3>
       </div>
       
       {/* Boxes with Icons and Text */}
       <div className="space-y-4">
-        <div className="flex items-center bg-my-green p-4 rounded-lg shadow-lg">
+        <div className="flex items-center bg-light-green p-4 rounded-lg shadow-lg">
           <div className="w-12 h-12 flex items-center justify-center bg-green-700 text-white rounded-full mr-4">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
@@ -170,7 +169,7 @@ const LandingPage = () => {
           </div>
           <p className="text-lg">Understand the Issue</p>
         </div>
-        <div className="flex items-center bg-my-green p-4 rounded-lg shadow-lg">
+        <div className="flex items-center bg-light-green p-4 rounded-lg shadow-lg">
           <div className="w-12 h-12 flex items-center justify-center bg-green-700 text-white rounded-full mr-4">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
@@ -202,15 +201,15 @@ const LandingPage = () => {
   </div>
   
   <div className="relative z-10 mb-8">
-    <button className="text-white bg-transparent border-2 border-my-green px-10 py-3 rounded-lg text-lg font-semibold hover:bg-my-green hover:text-white transition">
+    <button className="text-white bg-transparent border-2 border-light-green px-10 py-3 rounded-lg text-lg font-semibold hover:bg-light-green hover:text-white transition">
       25% Discount
     </button>
   </div>
 
   <div className="relative z-10 flex flex-col lg:flex-row gap-0 max-w-screen-lg mx-auto">
     {/* Pricing Card 1 */}
-    <div className="bg-my-green text-white rounded-lg shadow-lg p-6 flex flex-col items-center relative transform transition-transform hover:scale-105 focus-within:scale-105 z-10">
-      <div className="w-full bg-my-green p-4 rounded-lg text-center">
+    <div className="bg-light-green text-white rounded-lg shadow-lg p-6 flex flex-col items-center relative transform transition-transform hover:scale-105 focus-within:scale-105 z-10">
+      <div className="w-full bg-light-green p-4 rounded-lg text-center">
         <div className="w-full p-2 bg-white rounded-lg text-center text-black">
           <h2 className="text-xl font-bold">Basic Plan</h2>
         </div>
@@ -232,7 +231,7 @@ const LandingPage = () => {
 
     {/* Pricing Card 2 (Focused) */}
     <div className="bg-white text-gray-800 rounded-lg shadow-lg p-6 flex flex-col items-center relative transform scale-105 z-20">
-      <div className="w-full bg-my-green px-10 p-3 rounded-lg text-center ">
+      <div className="w-full bg-light-green px-10 p-3 rounded-lg text-center ">
         <h2 className="text-xl font-bold text-white">Standard Plan</h2>
         <p className="text-lg font-bold mt-2 relative text-white">
           <span className="text-2xl font-extrabold">USD 39.99</span>
@@ -246,14 +245,14 @@ const LandingPage = () => {
           <li>Feature 3</li>
           <li>Feature 4</li>
         </ul>
-        <div className="w-full border-t-2 border-my-green mb-4"></div>
-        <button className="bg-my-green text-white px-6 py-2 rounded-3xl text-sm font-semibold hover:bg-green-600 transition">Buy Now</button>
+        <div className="w-full border-t-2 border-light-green mb-4"></div>
+        <button className="bg-light-green text-white px-6 py-2 rounded-3xl text-sm font-semibold hover:bg-green-600 transition">Buy Now</button>
       </div>
     </div>
 
     {/* Pricing Card 3 */}
-    <div className="bg-my-green text-white rounded-lg shadow-lg p-6 flex flex-col items-center relative transform transition-transform hover:scale-105 focus-within:scale-105 z-10">
-      <div className="w-full bg-my-green p-4 rounded-lg text-center">
+    <div className="bg-light-green text-white rounded-lg shadow-lg p-6 flex flex-col items-center relative transform transition-transform hover:scale-105 focus-within:scale-105 z-10">
+      <div className="w-full bg-light-green p-4 rounded-lg text-center">
         <div className="w-full p-2 bg-white rounded-lg text-center text-black">
           <h2 className="text-xl font-bold">Premium Plan</h2>
         </div>
@@ -302,7 +301,7 @@ id='contact'
           <input
             type="text"
             id="name"
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-my-green"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-light-green"
             required
           />
         </div>
@@ -311,7 +310,7 @@ id='contact'
           <input
             type="email"
             id="email"
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-my-green"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-light-green"
             required
           />
         </div>
@@ -320,7 +319,7 @@ id='contact'
           <input
             type="tel"
             id="phone"
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-my-green"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-light-green"
             required
           />
         </div>
@@ -329,14 +328,14 @@ id='contact'
           <textarea
             id="message"
             rows="4"
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-my-green"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-light-green"
             required
           ></textarea>
         </div>
         <div>
           <button
             type="submit"
-            className="w-full bg-my-green text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition"
+            className="w-full bg-light-green text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition"
           >
             Submit
           </button>
