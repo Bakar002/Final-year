@@ -1,43 +1,75 @@
 import React from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { FaTemperatureHigh, FaCar, FaTachometerAlt, FaOilCan, FaCogs } from 'react-icons/fa';
 import 'react-circular-progressbar/dist/styles.css';
 
-const parameters = [
-  { id: 1, name: 'Brake Pads', performance: 80, status: 'Good' },
-  { id: 2, name: 'Gear Oil', performance: 65, status: 'Moderate' },
-  { id: 3, name: 'Fuel Efficiency', performance: 70, status: 'Good' },
-  { id: 4, name: 'Engine Temperature', performance: 90, status: 'Good' },
-  { id: 5, name: 'Battery Health', performance: 60, status: 'Moderate' },
-  { id: 6, name: 'Tire Pressure', performance: 75, status: 'Good' },
-  { id: 7, name: 'Transmission Fluid', performance: 50, status: 'Moderate' },
-];
+// Utility function to convert liveData object into a displayable array
+const transformLiveData = (data) => {
+  return Object.entries(data).map(([key, value], index) => {
+    let status = 'Good'; // Default status
+    if (value < 30) status = 'Low'; 
+    else if (value < 70) status = 'Moderate'; 
+    else if (value >= 70) status = 'High'; 
 
-const LowerLeftBlock = () => {
+    // Map key names to more readable forms if needed
+    const displayNames = {
+      coolantTemp: { label: 'Coolant Temperature', icon: <FaTemperatureHigh /> },
+      engineLoad: { label: 'Engine Load', icon: <FaCogs /> },
+      mph: { label: 'Speed (MPH)', icon: <FaCar /> },
+      oilTemp: { label: 'Oil Temperature', icon: <FaOilCan /> },
+      rpm: { label: 'RPM', icon: <FaTachometerAlt /> },
+    };
+
+    return {
+      id: index + 1,
+      name: displayNames[key]?.label || key,
+      icon: displayNames[key]?.icon,
+      value,
+      status,
+    };
+  });
+};
+
+const LowerLeftBlock = ({ liveData }) => {
+  const parameters = transformLiveData(liveData);
+
   return (
-    <div className="bg-medium-green rounded-3xl p-4 text-white w-12/12">
-      <h1 className='font-semibold text-2xl mb-4'>Parameters</h1>
-
-      <div className="grid grid-cols-4  mb-4 font-semibold text-center">
+    <div className="bg-medium-green rounded-3xl p-6 text-white w-full shadow-lg">
+      <h1 className="font-semibold text-2xl mb-4 text-center">Vehicle Parameters</h1>
+      
+      {/* Header for the parameters table */}
+      <div className="hidden md:grid grid-cols-4 gap-4 mb-4 font-semibold text-center border-b border-white pb-2">
         <div>#</div>
         <div>Name</div>
-        <div>Performance</div>
+        <p>Value</p>
         <div>Status</div>
       </div>
+
+      {/* Content for the parameters */}
       {parameters.map((param) => (
-        <div key={param.id} className="grid grid-cols-4  items-center mb-4 text-center">
-          <div>{param.id}</div>
-          <div>{param.name}</div>
-          <div className="w-16 h-16 mx-auto">
+        <div 
+          key={param.id} 
+          className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-4 text-center transition-transform transform hover:scale-105"
+        >
+          <div className="text-lg font-medium">{param.id}</div>
+          <div className="flex items-center justify-center text-lg font-medium">
+            {param.icon}
+            <span className="ml-2">{param.name}</span>
+          </div>
+          <div className="w-20 h-20 md:w-16 md:h-16 mx-auto">
             <CircularProgressbar
-              value={param.performance}
-              text={`${param.performance}%`}
+              value={param.value}
+              text={`${param.value}%`}
               styles={buildStyles({
-                pathColor: param.performance > 70 ? '#00FF00' : '#FFA500',
+                pathColor: param.value > 70 ? '#00FF00' : '#FFA500', // Adjust colors based on thresholds
                 textColor: '#FFF',
+                trailColor: '#ccc', // Trail color for the progress bar
               })}
             />
           </div>
-          <div>{param.status}</div>
+          <div className={`font-bold ${param.status === 'Good' ? 'text-green-400' : param.status === 'Moderate' ? 'text-yellow-400' : 'text-red-400'}`}>
+            {param.status}
+          </div>
         </div>
       ))}
     </div>

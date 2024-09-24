@@ -1,100 +1,74 @@
-import React from 'react';
-// import Gauge from './Gauge';
+import React, { useEffect, useState } from 'react';
 import LineGraph from './LineGraph';
-import Gauge from 'react-gauge-component'; // Assuming react-gauge-component is installed
+import Gauge from './Gauge';
+import { fetchHistoricalRpm, fetchHistoricalMph } from "../../components/Firebase/firebaseService";
 
-const gaugeData = [
-  { value: 70, text: '70%', color: '#FF0000', label: 'Engine Oil' },
-  { value: 50, text: '50%', color: '#00FF00', label: 'Engine Coolant' },
-  { value: 50, text: '50%', color: '#00FF00', label: 'Engine Coolant' },
+const RightSection = ({ liveData }) => {
+  const [gaugeData, setGaugeData] = useState([]);
+  const [speedData, setSpeedData] = useState([]);
+  const [rpmData, setRpmData] = useState([]);
 
+  // Map the data object to the gaugeData array
+  useEffect(() => {
+    const updatedGaugeData = [
+      { value: liveData.engineLoad, text: `${liveData.engineLoad}%`, color: '#FF0000', label: 'Engine Load' },
+      { value: liveData.coolantTemp, text: `${liveData.coolantTemp}%`, color: '#00FF00', label: 'Engine Coolant' },
+      { value: liveData.oilTemp, text: `${liveData.oilTemp}%`, color: '#0000FF', label: 'Oil Temperature' },
+    ];
+    setGaugeData(updatedGaugeData);
 
-];
+    const fetchData = async () => {
+      const speed = await fetchHistoricalMph(); // Retrieve speed data from Firebase
+      const rpm = await fetchHistoricalRpm(); // Retrieve RPM data from Firebase
 
-const lineGraphData = [
-  {
-    id: 'Speed',
-    color: 'hsl(252, 70%, 50%)',
-    data: [
-      { x: '1', y: 50 },
-      { x: '2', y: 80 },
-      { x: '3', y: 60 },
-      { x: '4', y: 100 },
-      { x: '5', y: 80 },
-    ],
-  },
-  {
-    id: 'RPM',
-    color: 'hsl(100, 70%, 50%)',
-    data: [
-      { x: '1', y: 2000 },
-      { x: '2', y: 2500 },
-      { x: '3', y: 2200 },
-      { x: '4', y: 3000 },
-      { x: '5', y: 2800 },
-    ],
-  },
-];
+      // Format the data to show on the graph with a 2-second interval on the X-axis
+      const formattedSpeedData = speed.map((value, index) => ({ x: index * 2, y: value }));
+      const formattedRpmData = rpm.map((value, index) => ({ x: index * 2, y: value }));
 
-const RightSection = () => {
+      setSpeedData(formattedSpeedData);
+      setRpmData(formattedRpmData);
+    };
+
+    fetchData();
+  }, [liveData]);
+
+  const lineGraphDataSpeed = [{ id: 'speed', data: speedData }];
+  const lineGraphDataRpm = [{ id: 'rpm', data: rpmData }];
+
   return (
-    <div className=" flex flex-col gap-4">
-      <div className=" flex gap-2  ">
+    <div className="flex flex-col gap-8 p-4">
+      <div className="flex gap-4 items-center justify-center flex-wrap">
         {gaugeData.map((gauge, index) => (
-          <div key={index} className="bg-black rounded-2xl flex items-center justify-center py-16 w-max h-auto">
-<Gauge
-              id={`gauge-${index}`} // Add unique ID for proper rendering
-              value={gauge.value} // Pass the value for the gauge
-              min={0} // Set minimum value (optional)
-              max={100} // Set maximum value (optional)
-              size={50} // Adjust size as needed
-              colors={[gauge.color]} // Use gauge.color for a single color
-              units={gauge.text} // Display text with percentage
-              label={gauge.label} // Display label for the parameter
-              pointer={{ type: 'arrow' }} // Use arrow pointer type
+          <div
+            key={index}
+            className="bg-medium-green rounded-2xl p-8 w-64 flex flex-col justify-center items-center transition-transform transform hover:scale-105 shadow-lg"
+          >
+            <Gauge
+              id={`gauge-${index}`}
+              value={gauge.value}
+              min={0}
+              max={100}
+              size={200}
+              colors={[gauge.color]}
+              units={gauge.text}
+              label={gauge.label}
+              pointer={{ type: 'needle' }}
             />
-
-
+            <div className="mt-4 text-center text-white text-lg font-semibold">
+              {gauge.label}
+            </div>
           </div>
         ))}
-          {/* <div className="flex-1 bg-black rounded-3xl p-2 py-10">
-       
-        <Gauge
-  value={50}
-  type="radial"
-  labels={{
-    tickLabels: {
-      type: "inner",
-      ticks: [
-        { value: 20 },
-        { value: 40 },
-        { value: 60 },
-        { value: 80 },
-        { value: 100 }
-      ]
-    }
-  }}
-  arc={{
-    colorArray: ['#5BE12C','#EA4228'],
-    subArcs: [{limit: 10}, {limit: 30}, {}, {}, {}],
-    padding: 0.01,
-    width: 0.08
-  }}
-  pointer={{
-    elastic: true,
-    animationDelay: 0
-  }}
-/>
-</div> */}
-      </div> 
-     {/* <div className='flex flex-col p-10'>
-      <div className=" bg-black rounded-3xl p-2 py-5">
-        <LineGraph data={[lineGraphData[0]]} />
       </div>
-      <div className=" bg-white rounded-3xl p-2 py-5">
-        <LineGraph data={[lineGraphData[1]]} />
+
+      <div className="flex flex-col gap-4">
+        <div className="bg-medium-green rounded-3xl p-4 shadow-lg">
+          <LineGraph data={lineGraphDataSpeed} />
+        </div>
+        <div className="bg-medium-green rounded-3xl p-4 shadow-lg">
+          <LineGraph data={lineGraphDataRpm} />
+        </div>
       </div>
-      </div> */}
     </div>
   );
 };

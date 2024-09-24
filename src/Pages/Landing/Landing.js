@@ -23,14 +23,13 @@ const LandingPage = () => {
         </div>
 
         {/* Centered Heading */}
-        <div className="relative flex flex-col items-center justify-center ">
-          <h2 className="relative text-6xl font-bold text-white opacity-60">
-            COGNI  DRIVE
-          </h2>
-          <h2 className="absolute text-6xl font-bold text-white opacity-50" style={{ top: '3rem', left: '50%', transform: 'translateX(-50%)', zIndex: '-1' }}>
-            COGNI  DRIVE
-          </h2>
-        </div>
+        <div className="relative flex flex-col items-center justify-center">
+  <h2 className="relative text-8xl text-transparent font-bold text-white opacity-60 tracking-widest">
+    COGNI DRIVE
+  </h2>
+</div>
+
+
 
         {/* Section */}
         <section className="h-screen items-start justify-start p-6 text-white">
