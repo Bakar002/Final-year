@@ -23,28 +23,28 @@ const Dashboard = () => {
 
   const classifyDrivingBehavior = (rpm, mph, engineLoad) => {
     const behaviors = [];
-
-    if (rpm < 1000 && mph < 5 && engineLoad < 20) {
-      behaviors.push('Idle');
-    } else if (rpm < 2000 && mph > 0 && mph < 50 && engineLoad < 40) {
-      behaviors.push('Eco Driving');
+  
+    if (rpm < 1000 && mph === 0 && engineLoad < 10) {
+      behaviors.push('Idle'); // No movement, low load and RPM
+    } else if (rpm < 2000 && mph > 0 && mph <= 50 && engineLoad < 30) {
+      behaviors.push('Eco Driving'); // Efficient driving with low RPM and moderate speed
     } else if (rpm > 4000 && mph > 70 && engineLoad > 80) {
-      behaviors.push('Aggressive Driving');
+      behaviors.push('Aggressive Driving'); // High speed, high load, and high RPM
     } else if (rpm >= 3000 && rpm <= 4000 && mph >= 50 && mph <= 70 && engineLoad >= 50 && engineLoad <= 80) {
-      behaviors.push('Moderate Driving');
+      behaviors.push('Moderate Driving'); // Balanced speed and load with moderate RPM
     } else if (rpm > 3000 && engineLoad > 70 && mph < 20) {
-      behaviors.push('Harsh Acceleration');
-    } else if (rpm > 2000 && mph > 60 && engineLoad < 50) {
-      behaviors.push('Cruising');
-    } else if (rpm < 3000 && mph < 60 && engineLoad < 50) {
-      behaviors.push('Normal Driving');
+      behaviors.push('Harsh Acceleration'); // Rapid acceleration with high RPM and load
+    } else if (rpm > 2000 && mph >= 60 && engineLoad < 50) {
+      behaviors.push('Cruising'); // Smooth driving at a steady speed
+    } else if (rpm <= 3000 && mph < 60 && engineLoad <= 50) {
+      behaviors.push('Normal Driving'); // Typical driving with no extreme behavior
     } else {
-      behaviors.push('Unclassified Behavior');
+      behaviors.push('Unclassified Behavior'); // Fallback for undefined scenarios
     }
-
+  
     return behaviors;
   };
-
+  
   const [liveData, setLiveData] = useState({});
 
   useEffect(() => {
