@@ -120,16 +120,20 @@ export const fetchHistoricalMph = async () => {
     const data = snapshot.val();
     const mphData = [];
 
-    // Iterate through the data to extract mph
+    // Iterate through the data to extract MPH with timestamps
     for (let key in data) {
       if (data.hasOwnProperty(key) && data[key].mph !== undefined) {
-        mphData.push(data[key].mph);
+        mphData.push({
+          timestamp: key, // Use the key as timestamp
+          dateTime: data[key].dateTime, // Readable date-time from the data
+          mph: data[key].mph, // MPH value
+        });
       }
     }
 
-    // Check if data was collected
+    // Check if any MPH data was found
     if (mphData.length === 0) {
-      console.warn('No mph data found in the data.');
+      console.warn('No MPH data found in the data.');
     }
 
     return mphData;
@@ -138,6 +142,7 @@ export const fetchHistoricalMph = async () => {
     return [];
   }
 };
+
 export const fetchHistoricalOilTemp = async () => {
   try {
     const dataRef = ref(database, 'obd_data3/');
@@ -184,14 +189,18 @@ export const fetchHistoricalRpm = async () => {
     const data = snapshot.val();
     const rpmData = [];
 
-    // Iterate through the data to extract RPM
+    // Iterate through the data to extract RPM with timestamps
     for (let key in data) {
       if (data.hasOwnProperty(key) && data[key].rpm !== undefined) {
-        rpmData.push(data[key].rpm);
+        rpmData.push({
+          timestamp: key, // Use the key as timestamp
+          dateTime: data[key].dateTime, // Readable date-time from data
+          rpm: data[key].rpm, // RPM value
+        });
       }
     }
 
-    // Check if data was collected
+    // Check if any RPM data was found
     if (rpmData.length === 0) {
       console.warn('No RPM data found in the data.');
     }
@@ -219,32 +228,68 @@ const generateDynamicData = (type, lastData) => {
   };
 
   switch (type) {
-    case 'normal':
-      data.coolantTemp += getRandomChange(-0.5, 0.5);
-      data.engineLoad += getRandomChange(-1, 1);
-      data.mph += getRandomChange(-3, 3);
-      data.oilTemp += getRandomChange(-0.5, 0.5);
-      data.rpm += getRandomChange(-100, 100);
+    case 'idle':
+      data.coolantTemp += getRandomChange(-0.2, 0.2);
+      data.engineLoad += getRandomChange(-0.5, 0.5);
+      data.mph = 0;  // Idle means no movement
+      data.oilTemp += getRandomChange(-0.2, 0.2);
+      data.rpm += getRandomChange(-50, 50); // Minimal RPM fluctuation
       break;
-    case 'aggressive':
+
+    case 'ecoDriving':
+      data.coolantTemp += getRandomChange(-0.3, 0.3);
+      data.engineLoad += getRandomChange(-1, 2); // Minimal engine load
+      data.mph += getRandomChange(-3, 5); // Moderate speed increase
+      data.oilTemp += getRandomChange(-0.5, 0.5);
+      data.rpm += getRandomChange(-100, 150);
+      break;
+
+    case 'aggressiveDriving':
       data.coolantTemp += getRandomChange(-1, 1);
       data.engineLoad += getRandomChange(-5, 5);
       data.mph += getRandomChange(-10, 10);
       data.oilTemp += getRandomChange(-2, 2);
       data.rpm += getRandomChange(-500, 500);
       break;
-    case 'average':
-      data.coolantTemp += getRandomChange(-0.7, 0.7);
+
+    case 'moderateDriving':
+      data.coolantTemp += getRandomChange(-0.5, 0.5);
       data.engineLoad += getRandomChange(-2, 2);
-      data.mph += getRandomChange(-5, 5);
+      data.mph += getRandomChange(-5, 7);
       data.oilTemp += getRandomChange(-1, 1);
-      data.rpm += getRandomChange(-250, 250);
+      data.rpm += getRandomChange(-200, 200);
       break;
+
+    case 'harshAcceleration':
+      data.coolantTemp += getRandomChange(-1, 1);
+      data.engineLoad += getRandomChange(5, 10); // Rapid load increase
+      data.mph += getRandomChange(10, 20); // Sudden speed jump
+      data.oilTemp += getRandomChange(-1, 2);
+      data.rpm += getRandomChange(500, 1000); // High RPM spike
+      break;
+
+    case 'cruising':
+      data.coolantTemp += getRandomChange(-0.2, 0.2);
+      data.engineLoad += getRandomChange(-1, 1); // Minimal fluctuation
+      data.mph += getRandomChange(-2, 2); // Steady speed
+      data.oilTemp += getRandomChange(-0.5, 0.5);
+      data.rpm += getRandomChange(-100, 100);
+      break;
+
+    case 'normalDriving':
+      data.coolantTemp += getRandomChange(-0.5, 0.5);
+      data.engineLoad += getRandomChange(-1, 1);
+      data.mph += getRandomChange(-3, 3);
+      data.oilTemp += getRandomChange(-0.5, 0.5);
+      data.rpm += getRandomChange(-100, 100);
+      break;
+
     default:
+      console.warn("Unknown driving type. No data generated.");
       break;
   }
 
-  // Clamp values within safe ranges
+  // Clamp values within safe ranges to avoid unrealistic readings
   data.coolantTemp = Math.min(Math.max(data.coolantTemp, 70), 120);
   data.engineLoad = Math.min(Math.max(data.engineLoad, 10), 100);
   data.mph = Math.min(Math.max(data.mph, 0), 150);
@@ -312,22 +357,39 @@ export const stopEngine = () => {
     .then(() => console.log('Engine stopped, data reset to zero'))
     .catch((error) => console.error('Error stopping engine:', error));
 };
-
-// Function to feed data to Firebase every 2 seconds
 const feedDataToFirebase = (type, lastData) => {
   const database = getDatabase();
   const timestamp = Date.now();
+
+  // Get Pakistan Standard Time (UTC+5)
+  const dateTime = new Intl.DateTimeFormat('en-PK', {
+    timeZone: 'Asia/Karachi',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  }).format(new Date());
+
   const dataRef = ref(database, `/obd_data3/${timestamp}`);
 
-  const dynamicData = generateDynamicData(type, lastData);
+  const dynamicData = {
+    ...generateDynamicData(type, lastData),
+    timestamp, // Raw timestamp
+    dateTime,  // Pakistan local time
+  };
 
   // Set dynamic data in Firebase
   set(dataRef, dynamicData)
-    .then(() => console.log(`${type.charAt(0).toUpperCase() + type.slice(1)} data fed successfully`))
+    .then(() =>
+      console.log(`${type.charAt(0).toUpperCase() + type.slice(1)} data fed successfully`)
+    )
     .catch((error) => console.error('Error feeding data:', error));
 
   return dynamicData;
 };
+
 
 // Function to start feeding dynamic data based on driving mode
 const startFeedingDynamicData = (type) => {
